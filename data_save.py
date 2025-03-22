@@ -35,7 +35,7 @@ def scrape_books():
             stars = numbers_dict[stars_element['class'][1]]
             upc = soup.find('th', string='UPC').find_next_sibling().text
             availability = soup.find('th', string='Availability').find_next_sibling().text
-            availability_number = int(availability.split('(')[1][0:2])  # Sayıya çeviriyoruz
+            availability_number = int(availability.split('(')[1][0:2])  
             image_link = 'https://books.toscrape.com' + soup.find('div', {'class':'thumbnail'}).find('img')['src']
             
             books.append({
@@ -52,7 +52,7 @@ def scrape_books():
     return books
 
 def save_books_to_db():
-    db: Session = SessionLocal()  # Veritabanı oturumu aç
+    db: Session = SessionLocal()  
     books = scrape_books()
     
     for book in books:
@@ -68,8 +68,8 @@ def save_books_to_db():
         )
         db.add(db_book)
     
-    db.commit()  # Değişiklikleri kaydet
-    db.close()   # Oturumu kapat
+    db.commit()  
+    db.close()   
 
-# Çalıştırmak için:
+
 save_books_to_db()
